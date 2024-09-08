@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+
+  //main color 
+  static const Color primary = Color (0xff8685E7);
+  static const Color backgroundColor =Color(0xff121212);
+  static const Color txtColor =Color(0xffFFFFFF);
+  static const Color fromColor =Color(0xff979797);
+  static const Color bottomSheetColor = Color(0xff424242);
+  
+  
+  
+  
+  //secondary color
+  static const Color pink = Color(0xffFF4666);
+  static const Color green = Color(0xff66CC41);
+  static const Color greenBlue = Color(0xff41CCA7);
+  static const Color blue = Color(0xff4181CC);
+  static const Color gamily = Color(0xffCC8441);
+  static const Color purple = Color(0xff9741CC);
+
+
+
+  
+
+
+}
