@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/core/utils/app_assets.dart';
-import 'package:to_do_app/core/utils/app_colors.dart';
+
+import 'package:to_do_app/core/routes/routes.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+import 'package:to_do_app/features/auth/screens/splash_screen/splash_view.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({
+    super.key,
+    required this.appRouter,
+  });
+  final AppRouter appRouter;
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
+      onGenerateRoute: appRouter.generateRouter,
       title: AppStrings.appName,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        
-        body: Center(
-          child: Image.asset(AppAssets.appLogo),
-        ),
-      ),
+      home: const Scaffold(body:  SplashView()),
     );
   }
 }
