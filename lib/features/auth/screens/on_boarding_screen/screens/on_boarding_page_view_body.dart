@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/core/extension/gap.dart';
 import 'package:to_do_app/core/routes/app_routes_name.dart';
-import 'package:to_do_app/core/routes/routes.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/indicator.dart';
@@ -30,14 +28,11 @@ class OnBoardingPageView extends StatelessWidget {
               ? Align(
                   alignment: Alignment.topLeft,
                   child: TextButton(
-                    child: Text(
-                      AppStrings.skip,
-                      style: GoogleFonts.lato(
-                        color: AppColor.txtColor.withOpacity(0.44),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: Text(AppStrings.skip,
+                        style:
+                            Theme.of(context).textTheme.displayMedium!.copyWith(
+                                  color: AppColor.txtColor.withOpacity(0.44),
+                                )),
                     onPressed: () {
                       _controller.jumpToPage(2);
                     },
@@ -56,24 +51,13 @@ class OnBoardingPageView extends StatelessWidget {
           //space from up
           70.height,
           //title
-          Text(
-            pageViewScreen[index].title,
-            style: GoogleFonts.lato(
-              color: AppColor.txtColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-            ),
-          ),
+          Text(pageViewScreen[index].title,
+              style: Theme.of(context).textTheme.displayLarge),
           //space from up
           42.height,
-          Text(
-            pageViewScreen[index].desc,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.lato(
-              color: AppColor.txtColor,
-              fontSize: 16,
-            ),
-          ),
+          Text(pageViewScreen[index].desc,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displayMedium),
           const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,14 +65,12 @@ class OnBoardingPageView extends StatelessWidget {
               TextButton(
                 child: Visibility(
                   visible: index != 0,
-                  child: Text(
-                    AppStrings.back,
-                    style: GoogleFonts.lato(
-                      color: AppColor.txtColor.withOpacity(0.44),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
+                  child: Text(AppStrings.back,
+                      style:
+                          Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.txtColor.withOpacity(0.44),
+                              )),
                 ),
                 onPressed: () {
                   _controller.previousPage(
@@ -103,13 +85,8 @@ class OnBoardingPageView extends StatelessWidget {
                     ),
                     backgroundColor: AppColor.primary),
                 child: Text(
-                  index == 2 ? AppStrings.getStarted : AppStrings.next,
-                  style: GoogleFonts.lato(
-                    color: AppColor.txtColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
+                    index == 2 ? AppStrings.getStarted : AppStrings.next,
+                    style: Theme.of(context).textTheme.displayMedium),
                 onPressed: () {
                   index != 2
                       ? _controller.nextPage(

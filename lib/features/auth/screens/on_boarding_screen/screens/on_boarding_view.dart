@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/screens/on_boarding_page_view_body.dart';
 
 class OnBoardingView extends StatefulWidget {
@@ -20,7 +19,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
