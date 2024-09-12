@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/extension/gap.dart';
 import 'package:to_do_app/core/routes/app_routes_name.dart';
+import 'package:to_do_app/core/shared/cache_helper.dart';
+import 'package:to_do_app/core/shared/shared_keys.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/indicator.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/on_boarding_model.dart';
+import 'package:to_do_app/services/services_locator.dart';
 
 class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({
@@ -16,6 +19,7 @@ class OnBoardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lastOnBoarding = pageViewScreen.length - 1;
     return PageView.builder(
       itemCount: pageViewScreen.length,
       controller: _controller,
@@ -24,7 +28,7 @@ class OnBoardingPageView extends StatelessWidget {
           //space from up
           14.height,
           //text
-          index != 2
+          index != lastOnBoarding
               ? Align(
                   alignment: Alignment.topLeft,
                   child: TextButton(
@@ -85,14 +89,20 @@ class OnBoardingPageView extends StatelessWidget {
                     ),
                     backgroundColor: AppColor.primary),
                 child: Text(
-                    index == 2 ? AppStrings.getStarted : AppStrings.next,
+                    index == lastOnBoarding
+                        ? AppStrings.getStarted
+                        : AppStrings.next,
                     style: Theme.of(context).textTheme.displayMedium),
                 onPressed: () {
-                  index != 2
-                      ? _controller.nextPage(
-                          duration: const Duration(milliseconds: 1),
-                          curve: Curves.bounceIn)
-                      : Navigator.pushNamed(context, AppRoutesName.homePage);
+                  if (index != lastOnBoarding) {
+                    _controller.nextPage(
+                        duration: const Duration(milliseconds: 1),
+                        curve: Curves.bounceIn);
+                  } else {
+                    sl<CacheHelper>()
+                        .saveData(key: SharedKeys.onBoarding, value: true);
+                    Navigator.pushNamed(context, AppRoutesName.homePage);
+                  }
                 },
               ),
             ],
