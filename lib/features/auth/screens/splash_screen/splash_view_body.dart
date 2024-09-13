@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/extension/gap.dart';
+import 'package:to_do_app/core/extension/navigator.dart';
 import 'package:to_do_app/core/routes/app_routes_name.dart';
 import 'package:to_do_app/core/shared/cache_helper.dart';
 import 'package:to_do_app/core/shared/shared_keys.dart';
@@ -18,9 +19,9 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   void initState() {
     Future.delayed(const Duration(seconds: 5), () {
       if (sl<CacheHelper>().getData(key: SharedKeys.onBoarding) == null) {
-        Navigator.pushNamed(context, AppRoutesName.onBoarding);
+        context.pushNamed(AppRoutesName.onBoarding);
       } else {
-        Navigator.pushNamed(context, AppRoutesName.homePage);
+        context.pushNamed(AppRoutesName.homePage);
       }
     });
     super.initState();

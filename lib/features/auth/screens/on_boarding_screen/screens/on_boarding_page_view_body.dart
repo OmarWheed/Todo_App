@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:to_do_app/core/extension/gap.dart';
+import 'package:to_do_app/core/extension/navigator.dart';
 import 'package:to_do_app/core/routes/app_routes_name.dart';
 import 'package:to_do_app/core/shared/cache_helper.dart';
 import 'package:to_do_app/core/shared/shared_keys.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+import 'package:to_do_app/core/widget/custom_text_button.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/indicator.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/on_boarding_model.dart';
 import 'package:to_do_app/services/services_locator.dart';
@@ -31,34 +34,32 @@ class OnBoardingPageView extends StatelessWidget {
           index != lastOnBoarding
               ? Align(
                   alignment: Alignment.topLeft,
-                  child: TextButton(
-                    child: Text(AppStrings.skip,
-                        style:
-                            Theme.of(context).textTheme.displayMedium!.copyWith(
-                                  color: AppColor.txtColor.withOpacity(0.44),
-                                )),
+                  child: CustomTextButton(
+                    text: AppStrings.skip,
                     onPressed: () {
-                      _controller.jumpToPage(2);
+                      _controller.jumpToPage(lastOnBoarding);
                     },
                   ),
                 )
               : const SizedBox(
                   height: 50,
                 ),
-          //space from up
-          15.height,
+
           //image
-          Image.asset(pageViewScreen[index].img),
-          //space from up
-          16.height,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Image.asset(pageViewScreen[index].img),
+          ),
+
           Indicator(controller: _controller),
-          //space from up
-          70.height,
+
           //title
-          Text(pageViewScreen[index].title,
-              style: Theme.of(context).textTheme.displayLarge),
-          //space from up
-          42.height,
+          Padding(
+            padding: const EdgeInsets.only(top: 70, bottom: 42),
+            child: Text(pageViewScreen[index].title,
+                style: Theme.of(context).textTheme.displayLarge),
+          ),
+
           Text(pageViewScreen[index].desc,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.displayMedium),
@@ -66,22 +67,20 @@ class OnBoardingPageView extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                child: Visibility(
+              Visibility(
                   visible: index != 0,
-                  child: Text(AppStrings.back,
-                      style:
-                          Theme.of(context).textTheme.displayMedium!.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.txtColor.withOpacity(0.44),
-                              )),
-                ),
-                onPressed: () {
-                  _controller.previousPage(
-                      duration: const Duration(milliseconds: 1),
-                      curve: Curves.bounceIn);
-                },
-              ),
+                  child: CustomTextButton(
+                    text: AppStrings.back,
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColor.txtColor.withOpacity(0.44),
+                        ),
+                    onPressed: () {
+                      _controller.previousPage(
+                          duration: const Duration(milliseconds: 1),
+                          curve: Curves.bounceIn);
+                    },
+                  )),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -101,7 +100,7 @@ class OnBoardingPageView extends StatelessWidget {
                   } else {
                     sl<CacheHelper>()
                         .saveData(key: SharedKeys.onBoarding, value: true);
-                    Navigator.pushNamed(context, AppRoutesName.homePage);
+                    context.pushReplacementNamed(AppRoutesName.homePage);
                   }
                 },
               ),
