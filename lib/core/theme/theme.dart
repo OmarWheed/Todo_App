@@ -15,5 +15,11 @@ ThemeData getAppTheme() {
           color: AppColor.txtColor,
           fontSize: 16,
         ),
+        displaySmall: GoogleFonts.lato(
+          color: AppColor.txtColor,
+          fontSize: 16,
+          fontWeight: FontWeight.normal
+
+        ),
       ));
 }

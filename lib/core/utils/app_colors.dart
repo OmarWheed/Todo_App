@@ -9,7 +9,7 @@ class AppColor{
   static const Color fromColor =Color(0xff979797);
   static const Color bottomSheetColor = Color(0xff424242);
   static const Color dotColor = Color(0xffAFAFAF);
-  
+  static const Color pickerTimeColor=Color(0xff242969);
   
   
   
