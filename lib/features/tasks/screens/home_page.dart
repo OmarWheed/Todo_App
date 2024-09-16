@@ -26,56 +26,132 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    _selectedValue.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 24),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      _selectedValue.toString(),
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: 24),
+                    ),
                   ),
-                ),
-                12.height,
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    AppStrings.today,
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge!
-                        .copyWith(fontSize: 24),
+                  12.height,
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      AppStrings.today,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayLarge!
+                          .copyWith(fontSize: 24),
+                    ),
                   ),
-                ),
-                8.height,
-                SizedBox(
-                  height: 100,
-                  child: DatePicker(
-                    DateTime.now(),
-                    initialSelectedDate: DateTime.now(),
-                    selectionColor: AppColor.pickerTimeColor,
-                    selectedTextColor: Colors.white,
-                    dayTextStyle: Theme.of(context).textTheme.displaySmall!,
-                    monthTextStyle: Theme.of(context).textTheme.displaySmall!,
-                    dateTextStyle: Theme.of(context).textTheme.displaySmall!,
-                    onDateChange: (date) {
-                      String newFormatDate = DateFormat.yMMMMd().format(date);
-                      setState(() {
-                        _selectedValue = newFormatDate;
-                      });
-                    },
+                  8.height,
+                  SizedBox(
+                    height: 100,
+                    child: DatePicker(
+                      DateTime.now(),
+                      initialSelectedDate: DateTime.now(),
+                      selectionColor: AppColor.pickerTimeColor,
+                      selectedTextColor: Colors.white,
+                      dayTextStyle: Theme.of(context).textTheme.displaySmall!,
+                      monthTextStyle: Theme.of(context).textTheme.displaySmall!,
+                      dateTextStyle: Theme.of(context).textTheme.displaySmall!,
+                      onDateChange: (date) {
+                        String newFormatDate = DateFormat.yMMMMd().format(date);
+                        setState(() {
+                          _selectedValue = newFormatDate;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                50.height,
-                Image.asset(AppAssets.noTask),
-                noTaskWidget(context),
-              ],
+                  50.height,
+                  Image.asset(AppAssets.noTask),
+                  // noTaskWidget(context),
+                  const TaskCard(),
+                  10.height,
+                  const TaskCard(),
+                  10.height,
+                  const TaskCard(),
+                  10.height,
+                  const TaskCard(),
+                ],
+              ),
             ),
           ),
         ));
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  const TaskCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 128,
+      width: double.infinity,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: AppColor.pink,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Task 1',
+                    style:
+                        Theme.of(context).textTheme.displayLarge),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.timer_outlined,
+                      color: Colors.white,
+                    ),
+                    8.width,
+                    Text('09:33 PM - 09:48 PM',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall),
+                  ],
+                ),
+                Text('Learn Dart',
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(
+                            fontSize: 24,
+                            fontWeight: FontWeight.normal)),
+              ]),
+          const Row(
+            children: [
+              VerticalDivider(
+                color: Colors.white,
+                thickness: 2,
+              ),
+              
+              RotatedBox(
+               quarterTurns: -1,
+                  child: Text(
+                'TODO',
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              )),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
 
