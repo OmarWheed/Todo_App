@@ -1,10 +1,15 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+
 import 'package:to_do_app/core/extension/gap.dart';
-import 'package:to_do_app/core/utils/app_assets.dart';
+import 'package:to_do_app/core/extension/navigator.dart';
+import 'package:to_do_app/core/routes/app_routes_name.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+import 'package:to_do_app/features/tasks/widget/show_bottom_sheet.dart';
+import 'package:to_do_app/features/tasks/widget/task_item_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,12 +25,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.primary,
-          onPressed: () {},
+          onPressed: () {
+            context.pushNamed(AppRoutesName.addPage);
+          },
           child: const Icon(Icons.add),
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: 24.r),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: 24),
+                          .copyWith(fontSize: 24.sp),
                     ),
                   ),
                   12.height,
@@ -48,12 +55,12 @@ class _HomePageState extends State<HomePage> {
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge!
-                          .copyWith(fontSize: 24),
+                          .copyWith(fontSize: 24.sp),
                     ),
                   ),
                   8.height,
                   SizedBox(
-                    height: 100,
+                    height: 94.h,
                     child: DatePicker(
                       DateTime.now(),
                       initialSelectedDate: DateTime.now(),
@@ -71,102 +78,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   50.height,
-                  Image.asset(AppAssets.noTask),
+                  //Image.asset(AppAssets.noTask),
                   // noTaskWidget(context),
-                  const TaskCard(),
-                  10.height,
-                  const TaskCard(),
-                  10.height,
-                  const TaskCard(),
-                  10.height,
-                  const TaskCard(),
+                  TaskCard(
+                    onTap: () {
+                      showCustomBottomSheet(context);
+                    },
+                  ),
                 ],
               ),
             ),
           ),
         ));
   }
-}
-
-class TaskCard extends StatelessWidget {
-  const TaskCard({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 128,
-      width: double.infinity,
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: AppColor.pink,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Task 1',
-                    style:
-                        Theme.of(context).textTheme.displayLarge),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.timer_outlined,
-                      color: Colors.white,
-                    ),
-                    8.width,
-                    Text('09:33 PM - 09:48 PM',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall),
-                  ],
-                ),
-                Text('Learn Dart',
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(
-                            fontSize: 24,
-                            fontWeight: FontWeight.normal)),
-              ]),
-          const Row(
-            children: [
-              VerticalDivider(
-                color: Colors.white,
-                thickness: 2,
-              ),
-              
-              RotatedBox(
-               quarterTurns: -1,
-                  child: Text(
-                'TODO',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              )),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-Column noTaskWidget(BuildContext context) {
-  return Column(
-    children: [
-      Text(
-        AppStrings.noTask,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 20),
-      ),
-      10.height,
-      Text(
-        AppStrings.noTaskDes,
-        style: Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 20),
-      ),
-    ],
-  );
 }
