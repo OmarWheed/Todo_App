@@ -5,12 +5,12 @@ import 'package:to_do_app/core/utils/app_colors.dart';
 class CustomElevatedButton extends StatelessWidget {
   final Color? backgroundColor;
   final String text;
-  final void Function()? onPressed;
+  final Function()? onPressed;
   const CustomElevatedButton(
       {super.key, this.backgroundColor, this.onPressed, required this.text});
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 48.h,
       //margin:const EdgeInsets.symmetric(horizontal: 24,vertical: 16),
       width: double.infinity,
@@ -21,7 +21,7 @@ class CustomElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.w),
             ),
-            textStyle:Theme.of(context).textTheme.displaySmall ,
+            textStyle: Theme.of(context).textTheme.displaySmall,
             backgroundColor: backgroundColor ?? AppColor.blue),
         child: Text(text),
       ),

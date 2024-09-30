@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/core/extension/navigator.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
-import 'package:to_do_app/features/tasks/screens/add_page_body.dart';
+import 'package:to_do_app/features/tasks/presentation/screens/add_page_body.dart';
 
 class AddTask extends StatelessWidget {
   const AddTask({super.key});

@@ -1,27 +1,40 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:to_do_app/core/extension/gap.dart';
-import 'package:to_do_app/core/utils/app_colors.dart';
+import 'package:to_do_app/core/widget/list_of_color.dart';
 
 class TaskCard extends StatelessWidget {
+  final String title;
+  final String note;
+  final String startTime;
+  final String endTime;
+  final bool? isCompleted;
+  final int? color;
   final void Function()? onTap;
-  const TaskCard({
-    super.key,
-    this.onTap,
-  });
+
+  const TaskCard(
+      {super.key,
+      required this.title,
+      required this.note,
+      required this.startTime,
+      required this.endTime,
+      this.isCompleted,
+      this.color,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 120.h,
+        height: 150.h,
+ //       height: MediaQuery.of(context).size.height * 0.4,
         width: double.infinity,
-        margin:  EdgeInsets.only(bottom: 24.r),
-        padding:  EdgeInsets.all(8.r),
+        margin: EdgeInsets.only(bottom: 24.r),
+        padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(
-          color: AppColor.pink,
+          color: listOfColor[color ?? 0],
           borderRadius: BorderRadius.circular(16.w),
         ),
         child: Row(
@@ -31,8 +44,7 @@ class TaskCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Task 1',
-                      style: Theme.of(context).textTheme.displayLarge),
+                  Text(title, style: Theme.of(context).textTheme.displayLarge),
                   Row(
                     children: [
                       const Icon(
@@ -40,28 +52,30 @@ class TaskCard extends StatelessWidget {
                         color: Colors.white,
                       ),
                       8.width,
-                      Text('09:33 PM - 09:48 PM',
+                      Text('$startTime - $endTime',
                           style: Theme.of(context).textTheme.displaySmall),
                     ],
                   ),
-                  Text('Learn Dart',
+                  Text(note,
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
                           .copyWith(
                               fontSize: 24, fontWeight: FontWeight.normal)),
                 ]),
-            const Row(
+            Row(
               children: [
-                VerticalDivider(
+                const VerticalDivider(
                   color: Colors.white,
                   thickness: 2,
                 ),
                 RotatedBox(
                     quarterTurns: -1,
                     child: Text(
-                      'TODO',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      isCompleted == null || isCompleted == false
+                          ? 'TODO'
+                          : "is Completed",
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ],
             ),

@@ -18,5 +18,7 @@ extension NavigatorContext on BuildContext {
     return Navigator.of(this)
         .pushReplacementNamed(routeName, arguments: arguments);
   }
+  //pop 
+
 
 }

@@ -10,7 +10,7 @@ import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widget/custom_text_button.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/indicator.dart';
 import 'package:to_do_app/features/auth/screens/on_boarding_screen/widget/on_boarding_model.dart';
-import 'package:to_do_app/services/services_locator.dart';
+import 'package:to_do_app/core/services/services_locator.dart';
 
 class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({
