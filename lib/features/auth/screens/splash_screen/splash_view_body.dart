@@ -6,7 +6,7 @@ import 'package:to_do_app/core/shared/cache_helper.dart';
 import 'package:to_do_app/core/shared/shared_keys.dart';
 import 'package:to_do_app/core/utils/app_assets.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
-import 'package:to_do_app/services/services_locator.dart';
+import 'package:to_do_app/core/services/services_locator.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});

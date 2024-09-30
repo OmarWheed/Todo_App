@@ -11,9 +11,14 @@ extension NavigatorContext on BuildContext {
       {Map<String, dynamic> arguments = const {}}) {
     return Navigator.of(this).pushNamed(routeName, arguments: arguments);
   }
+
   //push name and replacement
   Future pushReplacementNamed(String routeName,
       {Map<String, dynamic> arguments = const {}}) {
-    return Navigator.of(this).pushReplacementNamed(routeName, arguments: arguments);
+    return Navigator.of(this)
+        .pushReplacementNamed(routeName, arguments: arguments);
   }
+  //pop 
+
+
 }
