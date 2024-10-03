@@ -20,10 +20,9 @@ class AppRouter {
       case AppRoutesName.homePage:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (BuildContext context) => taskCubit,
+                  create: (BuildContext context) => taskCubit..getAllTasks(),
                   child: const HomePage(),
-                )
-            );
+                ));
       case AppRoutesName.addPage:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<TaskCubit>.value(

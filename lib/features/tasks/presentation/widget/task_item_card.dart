@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:to_do_app/core/extension/gap.dart';
+import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widget/list_of_color.dart';
 
 class TaskCard extends StatelessWidget {
@@ -9,7 +10,7 @@ class TaskCard extends StatelessWidget {
   final String note;
   final String startTime;
   final String endTime;
-  final bool? isCompleted;
+  final int isCompleted;
   final int? color;
   final void Function()? onTap;
 
@@ -19,7 +20,7 @@ class TaskCard extends StatelessWidget {
       required this.note,
       required this.startTime,
       required this.endTime,
-      this.isCompleted,
+      required this.isCompleted,
       this.color,
       this.onTap});
 
@@ -29,7 +30,7 @@ class TaskCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 150.h,
- //       height: MediaQuery.of(context).size.height * 0.4,
+        //       height: MediaQuery.of(context).size.height * 0.4,
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 24.r),
         padding: EdgeInsets.all(20.r),
@@ -72,9 +73,7 @@ class TaskCard extends StatelessWidget {
                 RotatedBox(
                     quarterTurns: -1,
                     child: Text(
-                      isCompleted == null || isCompleted == false
-                          ? 'TODO'
-                          : "is Completed",
+                      isCompleted == 1 ? AppStrings.complete : AppStrings.todO,
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     )),
               ],

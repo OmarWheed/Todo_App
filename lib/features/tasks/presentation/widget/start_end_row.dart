@@ -16,31 +16,27 @@ class StartAndEndTime extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child:  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(AppStrings.startTime,
-                          style: Theme.of(context).textTheme.displaySmall),
-                      8.height,
-                      CustomTextFormField(
-                        readOnly: true,
-                        hintText: BlocProvider.of<TaskCubit>(context)
-                            .currentTimeStart
-                            .format(context),
-                        suffixIcon: IconButton(
-                            onPressed: () async {
-                              BlocProvider.of<TaskCubit>(context)
-                                  .getTimeStart(context);
-                            },
-                            icon: const Icon(
-                              Icons.watch_later_outlined,
-                              color: Colors.white,
-                            )),
-                      ),
-                    ],
-                  )
-               
-            ),
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(AppStrings.startTime,
+                    style: Theme.of(context).textTheme.displaySmall),
+                8.height,
+                CustomTextFormField(
+                  readOnly: true,
+                  hintText: BlocProvider.of<TaskCubit>(context).startTime,
+                  suffixIcon: IconButton(
+                      onPressed: () async {
+                        BlocProvider.of<TaskCubit>(context)
+                            .getTimeStart(context);
+                      },
+                      icon: const Icon(
+                        Icons.watch_later_outlined,
+                        color: Colors.white,
+                      )),
+                ),
+              ],
+            )),
             15.width,
             Expanded(
               child: Column(
@@ -51,11 +47,11 @@ class StartAndEndTime extends StatelessWidget {
                   8.height,
                   CustomTextFormField(
                     readOnly: true,
-                    hintText:
-                        context.read<TaskCubit>().timeEnd.format(context),
+                    hintText: context.read<TaskCubit>().endTime,
                     suffixIcon: IconButton(
                         onPressed: () async {
-                          BlocProvider.of<TaskCubit>(context).getTimeEnd(context);
+                          BlocProvider.of<TaskCubit>(context)
+                              .getTimeEnd(context);
                         },
                         icon: const Icon(
                           Icons.watch_later_outlined,
