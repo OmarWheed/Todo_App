@@ -8,7 +8,17 @@ class GetTaskLoadingState extends TaskState {}
 
 class GetTaskSuccessState extends TaskState {}
 
-class GetTaskErrorState extends TaskState {}
+class GetTaskErrorState extends TaskState {
+  final String errorMessage;
+  GetTaskErrorState({required this.errorMessage});
+}
+////////////////////
+
+class UpDateTheDataLoadingState extends TaskState {}
+
+class UpDateTheDataSuccessState extends TaskState {}
+
+class UpDateTheDataErrorState extends TaskState {}
 
 class GetStartTimeLoadingState extends TaskState {}
 

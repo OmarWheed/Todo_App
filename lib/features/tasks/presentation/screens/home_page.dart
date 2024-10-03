@@ -1,3 +1,4 @@
+
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,13 +97,11 @@ class HomePage extends StatelessWidget {
                                       startTime:
                                           BlocProvider.of<TaskCubit>(context)
                                               .taskList[index]
-                                              .startTime
-                                              .format(context),
+                                              .startTime,
                                       endTime:
                                           BlocProvider.of<TaskCubit>(context)
                                               .taskList[index]
-                                              .endTime.format(context)
-                                              ,
+                                              .endTime,
                                       isCompleted:
                                           BlocProvider.of<TaskCubit>(context)
                                               .taskList[index]

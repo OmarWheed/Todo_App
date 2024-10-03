@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app/core/database/db_helper.dart';
+import 'package:to_do_app/core/services/services_locator.dart';
 import 'package:to_do_app/core/utils/helper.dart';
 import 'package:to_do_app/features/tasks/data/model/task_model.dart';
 part 'task_state.dart';
@@ -12,8 +14,9 @@ class TaskCubit extends Cubit<TaskState> {
   TextEditingController controllerNote = TextEditingController();
   GlobalKey<FormState> globalKey = GlobalKey();
   DateTime currentData = DateTime.now();
-  TimeOfDay currentTimeStart = TimeOfDay.fromDateTime(DateTime.now());
-  TimeOfDay timeEnd = TimeOfDay.fromDateTime(DateTime.now());
+  String startTime = '8:00';
+  String endTime = '12:00';
+
   int currentIndex = 0;
   String selectedValue = DateFormat.yMMMMd().format(DateTime.now());
 
@@ -31,18 +34,21 @@ class TaskCubit extends Cubit<TaskState> {
   void addTask() {
     emit(InsertTaskLoading());
     try {
-      taskList.add(TaskModel(
-        id: lenList + 1,
+      //
+      sl<DataBaseHelper>().insertTask(
+          taskModel: TaskModel(
         title: controllerTitle.text,
         note: controllerNote.text,
-        data: currentDAta(currentData),
-        startTime: currentTimeStart,
-        endTime: timeEnd,
-        isCompleted: true,
+        date: currentDAta(currentData),
+        startTime: startTime,
+        endTime: endTime,
+        isCompleted: 0,
         color: currentIndex,
       ));
+      getAllTasks();
       controllerTitle.clear();
       controllerNote.clear();
+
       emit(InsertTaskSuccess());
     } catch (e) {
       emit(InsertTaskError(errorMessage: e.toString()));
@@ -50,7 +56,7 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void getDate(context) async {
-    emit(GetTaskLoadingState());
+    emit(UpDateTheDataLoadingState());
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -59,10 +65,10 @@ class TaskCubit extends Cubit<TaskState> {
     );
     if (pickedDate != null) {
       currentData = pickedDate;
-      emit(GetTaskSuccessState());
+      emit(UpDateTheDataSuccessState());
     } else {
       log("Pick failed==null");
-      emit(GetTaskErrorState());
+      emit(UpDateTheDataErrorState());
     }
   }
 
@@ -72,8 +78,9 @@ class TaskCubit extends Cubit<TaskState> {
       context: context,
       initialTime: TimeOfDay.fromDateTime(DateTime.now()),
     );
+
     if (pickerTimeStart != null) {
-      currentTimeStart = pickerTimeStart;
+      startTime = pickerTimeStart.format(context);
       emit(GetStartTimeSuccessState());
     } else {
       log("Pick Start Time failed==null");
@@ -88,7 +95,7 @@ class TaskCubit extends Cubit<TaskState> {
       initialTime: TimeOfDay.fromDateTime(DateTime.now()),
     );
     if (pickedEnd != null) {
-      timeEnd = pickedEnd;
+      endTime = pickedEnd.format(context);
       emit(GetEndTimeSuccessState());
     } else {
       log("Pick Start Time failed==null");
@@ -100,5 +107,16 @@ class TaskCubit extends Cubit<TaskState> {
     emit(IndexInitial());
     currentIndex = index;
     emit(IndexChecked());
+  }
+
+  void getAllTasks() async {
+    emit(GetTaskLoadingState());
+    await sl<DataBaseHelper>().getAllTasks().then((listOfTasks) async {
+      log("$listOfTasks");
+      taskList = listOfTasks.map((e) => TaskModel.fromJson(e)).toList();
+      emit(GetTaskSuccessState());
+    }).catchError((error) {
+      emit(GetTaskErrorState(errorMessage: error.toString()));
+    });
   }
 }
