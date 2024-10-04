@@ -7,7 +7,7 @@ class AppStrings {
   static const String onBoardingTitle1='Manage your tasks';
   static const String onBoardingTitle2='Create daily routine';
   static const String onBoardingTitle3='Organize your tasks';
-  static const String onBoardingDesc1='You can easily manage all of your daily tasks in DoMe for free';
+  static const String onBoardingDes1='You can easily manage all of your daily\n tasks in DoMe for free';
   static const String onBoardingDes2='In Up todo  you can create your personalized routine to stay productive';
   static const String onBoardingDes3='You can organize your daily tasks by adding your tasks into separate categories';
   static const String today='Today';
