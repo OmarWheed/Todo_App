@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:to_do_app/core/extension/gap.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
+
 import 'package:to_do_app/core/widget/list_of_color.dart';
 
 class TaskCard extends StatelessWidget {

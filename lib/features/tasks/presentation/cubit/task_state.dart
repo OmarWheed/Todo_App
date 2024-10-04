@@ -26,6 +26,7 @@ class GetStartTimeSuccessState extends TaskState {}
 
 class GetStartTimeErrorState extends TaskState {}
 
+//!time
 class GetEndTimeLoadingState extends TaskState {}
 
 class GetEndTimeSuccessState extends TaskState {}
@@ -47,3 +48,33 @@ class InsertTaskError extends TaskState {
 
   InsertTaskError({required this.errorMessage});
 }
+
+class CompleteLoading extends TaskState {}
+
+class CompleteSuccess extends TaskState {}
+
+class CompleteError extends TaskState {
+  final String errorMessage;
+
+  CompleteError({required this.errorMessage});
+}
+
+class DeleteTaskLoading extends TaskState {}
+
+class DeleteTaskSuccess extends TaskState {}
+
+class DeleteTaskError extends TaskState {
+  final String errorMessage;
+
+  DeleteTaskError({required this.errorMessage});
+}
+
+class FilterTaskLoading extends TaskState {}
+
+class FilterTaskSuccess extends TaskState {}
+
+class FilterTaskError extends TaskState {
+  final String errorMessage;
+  FilterTaskError({required this.errorMessage});
+}
+

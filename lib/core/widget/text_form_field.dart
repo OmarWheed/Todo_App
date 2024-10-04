@@ -27,10 +27,10 @@ class CustomTextFormField extends StatelessWidget {
           filled: true,
           fillColor: AppColor.fromColor,
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.txtColor),
+            borderSide: BorderSide(color: AppColor.backgroundColor),
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: AppColor.txtColor),
+            borderSide: BorderSide(color: AppColor.backgroundColor),
           )),
     );
   }

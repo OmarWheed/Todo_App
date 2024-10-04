@@ -1,0 +1,7 @@
+{
+    "workbench.colorCustomizations": {
+        "terminal.ansiGreen": "#00FF00", // Set this to any color you like for successful outputs
+        "terminal.ansiRed": "#FF0000", // Set this for error messages
+        "terminal.ansiYellow": "#FFFF00", // Set for warnings
+    }
+}

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:to_do_app/core/extension/navigator.dart';
 import 'package:to_do_app/core/utils/app_colors.dart';
 import 'package:to_do_app/core/utils/app_strings.dart';
 import 'package:to_do_app/core/widget/custom_elevated_button.dart';
+import 'package:to_do_app/features/tasks/presentation/cubit/task_cubit.dart';
 
-Future<dynamic> showCustomBottomSheet(BuildContext context) {
+Future<dynamic> showCustomBottomSheet(cxt, {required int index}) {
   return showModalBottomSheet(
-    context: context,
+    context: cxt,
     builder: (context) {
       return Container(
         height: 240.h,
@@ -19,7 +21,9 @@ Future<dynamic> showCustomBottomSheet(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<TaskCubit>(context).taskIsCompleted(index);
+                },
                 text: AppStrings.completeTask,
               ),
               CustomElevatedButton(

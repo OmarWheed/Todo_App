@@ -29,11 +29,13 @@ class AddPageBody extends StatelessWidget {
                 child: BlocListener<TaskCubit, TaskState>(
                   listener: (context, state) {
                     if (state is InsertTaskSuccess) {
+                      Navigator.of(context).pop();
+                    }
+                    if (state is InsertTaskLoading) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("add"),
+                        content: Text("loading"),
                         duration: Duration(milliseconds: 250),
                       ));
-                      Navigator.of(context).pop();
                     }
                   },
                   child: CustomElevatedButton(

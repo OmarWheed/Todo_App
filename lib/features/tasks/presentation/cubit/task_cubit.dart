@@ -28,6 +28,7 @@ class TaskCubit extends Cubit<TaskState> {
   void selectNewData(value) {
     selectedValue = value;
     emit(SelectValueDate());
+    getAllTasks();
   }
 
   //!add Task to List
@@ -42,7 +43,7 @@ class TaskCubit extends Cubit<TaskState> {
         date: currentDAta(currentData),
         startTime: startTime,
         endTime: endTime,
-        isCompleted: 0,
+        complete: 0,
         color: currentIndex,
       ));
       getAllTasks();
@@ -58,6 +59,7 @@ class TaskCubit extends Cubit<TaskState> {
   void getDate(context) async {
     emit(UpDateTheDataLoadingState());
     DateTime? pickedDate = await showDatePicker(
+      builder: themeOfPicker,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
@@ -72,9 +74,11 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
+//! get Time Start
   void getTimeStart(context) async {
     emit(GetStartTimeLoadingState());
     TimeOfDay? pickerTimeStart = await showTimePicker(
+      builder: themeOfPicker,
       context: context,
       initialTime: TimeOfDay.fromDateTime(DateTime.now()),
     );
@@ -88,9 +92,11 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
+  //! get Time End
   void getTimeEnd(context) async {
     emit(GetEndTimeLoadingState());
     TimeOfDay? pickedEnd = await showTimePicker(
+      builder: themeOfPicker,
       context: context,
       initialTime: TimeOfDay.fromDateTime(DateTime.now()),
     );
@@ -103,20 +109,51 @@ class TaskCubit extends Cubit<TaskState> {
     }
   }
 
+
+
+//! SetColor
   void setIndexColor(index) {
     emit(IndexInitial());
     currentIndex = index;
     emit(IndexChecked());
   }
 
+//!get All Tasks
   void getAllTasks() async {
     emit(GetTaskLoadingState());
     await sl<DataBaseHelper>().getAllTasks().then((listOfTasks) async {
-      log("$listOfTasks");
-      taskList = listOfTasks.map((e) => TaskModel.fromJson(e)).toList();
+      taskList = listOfTasks
+          .map((e) => TaskModel.fromJson(e))
+          .toList()
+          .where((task) => task.date == convertDate(selectedValue))
+          .toList();
+      // taskList.where((task) => task.date == currentDAta(selectedValue));
+
       emit(GetTaskSuccessState());
     }).catchError((error) {
       emit(GetTaskErrorState(errorMessage: error.toString()));
+    });
+  }
+
+//!
+  void taskIsCompleted(int id) async {
+    emit(CompleteLoading());
+    await sl<DataBaseHelper>().updateTask(id).then((e) {
+      getAllTasks();
+      emit(CompleteSuccess());
+    }).catchError((e) {
+      emit(CompleteError(errorMessage: e.toString()));
+    });
+  }
+
+  //! Delete
+  void deleteTask(int id) async {
+    emit(DeleteTaskLoading());
+    await sl<DataBaseHelper>().deleteTask(id: id).then((e) {
+      getAllTasks();
+      emit(DeleteTaskSuccess());
+    }).catchError((e) {
+      emit(DeleteTaskError(errorMessage: e.toString()));
     });
   }
 }

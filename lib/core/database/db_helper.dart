@@ -36,22 +36,22 @@ class DataBaseHelper {
   }
 
   //update task
-  // Future<int> updateTask({required TaskModel taskModel}) async {
-  //   return await db.rawUpdate(
-  //     '''UPDATE Test SET complete=${taskModel.isCompleted} WHERE id = ${taskModel.id}''',
-  //   );
-  // }
+  Future<int> updateTask(int id) async {
+    int number1 = 1;
+    return await db
+        .rawUpdate('''UPDATE TASKS SET complete=$number1 WHERE id = $id ''');
+  }
 
   // //delete task
-  // Future<int> deleteTask({required TaskModel taskModel}) async {
-  //   return await db.rawDelete("DELETE FROM TASKS WHERE ID =?", [taskModel.id]);
-  // }
+  Future<int> deleteTask({required int id}) async {
+    return await db.rawDelete("DELETE FROM TASKS WHERE ID =$id");
+  }
 
   //insert task
   Future<int> insertTask({required TaskModel taskModel}) async {
     return await db.rawInsert(
         '''INSERT INTO TASKS(title,note,date,startTime,endTime,complete,color) VALUES 
-        ("${taskModel.title}","${taskModel.note}","${taskModel.date}","${taskModel.startTime}","${taskModel.endTime}",${taskModel.isCompleted},${taskModel.color} )''');
+        ("${taskModel.title}","${taskModel.note}","${taskModel.date}","${taskModel.startTime}","${taskModel.endTime}",${taskModel.complete},${taskModel.color} )''');
   }
 }
 /*ID INTEGER PRIMARY KEY AUTOINCREMENT,
