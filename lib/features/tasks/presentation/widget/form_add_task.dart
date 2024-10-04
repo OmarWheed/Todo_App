@@ -27,6 +27,12 @@ class FormAddTask extends StatelessWidget {
               CustomTextFormField(
                 controller: BlocProvider.of<TaskCubit>(context).controllerTitle,
                 hintText: AppStrings.titleHint,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return 'Required';
+                  }
+                  return null;
+                },
               ),
               24.height,
               Text(AppStrings.note,
@@ -36,6 +42,12 @@ class FormAddTask extends StatelessWidget {
               CustomTextFormField(
                 controller: BlocProvider.of<TaskCubit>(context).controllerNote,
                 hintText: AppStrings.noteHint,
+                validator: (val) {
+                  if (val!.isEmpty) {
+                    return 'Required';
+                  }
+                  return null;
+                },
               ),
               24.height,
               Text(AppStrings.date,

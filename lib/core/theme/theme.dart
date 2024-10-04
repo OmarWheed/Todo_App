@@ -8,8 +8,8 @@ ThemeData getAppTheme() {
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColor.backgroundColor,
         foregroundColor: AppColor.txtColor,
-              
       ),
+      primaryColorLight: AppColor.txtColor,
       scaffoldBackgroundColor: AppColor.backgroundColor,
       textTheme: TextTheme(
         displayLarge: GoogleFonts.lato(

@@ -29,10 +29,6 @@ class AddPageBody extends StatelessWidget {
                 child: BlocListener<TaskCubit, TaskState>(
                   listener: (context, state) {
                     if (state is InsertTaskSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("add"),
-                        duration: Duration(milliseconds: 250),
-                      ));
                       Navigator.of(context).pop();
                     }
                   },
