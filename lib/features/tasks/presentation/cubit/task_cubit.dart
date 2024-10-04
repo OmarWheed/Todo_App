@@ -35,22 +35,23 @@ class TaskCubit extends Cubit<TaskState> {
   void addTask() {
     emit(InsertTaskLoading());
     try {
-      //
-      sl<DataBaseHelper>().insertTask(
-          taskModel: TaskModel(
-        title: controllerTitle.text,
-        note: controllerNote.text,
-        date: currentDAta(currentData),
-        startTime: startTime,
-        endTime: endTime,
-        complete: 0,
-        color: currentIndex,
-      ));
-      getAllTasks();
-      controllerTitle.clear();
-      controllerNote.clear();
+      if (globalKey.currentState!.validate()) {
+        sl<DataBaseHelper>().insertTask(
+            taskModel: TaskModel(
+          title: controllerTitle.text,
+          note: controllerNote.text,
+          date: currentDAta(currentData),
+          startTime: startTime,
+          endTime: endTime,
+          complete: 0,
+          color: currentIndex,
+        ));
+        getAllTasks();
+        controllerTitle.clear();
+        controllerNote.clear();
 
-      emit(InsertTaskSuccess());
+        emit(InsertTaskSuccess());
+      }
     } catch (e) {
       emit(InsertTaskError(errorMessage: e.toString()));
     }
@@ -108,8 +109,6 @@ class TaskCubit extends Cubit<TaskState> {
       emit(GetEndTimeErrorState());
     }
   }
-
-
 
 //! SetColor
   void setIndexColor(index) {

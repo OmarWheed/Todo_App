@@ -7,7 +7,9 @@ class CustomTextFormField extends StatelessWidget {
   final bool? readOnly;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
   const CustomTextFormField({
+    this.validator,
     super.key,
     required this.hintText,
     this.suffixIcon,
@@ -20,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
       readOnly: readOnly ?? false,
       style: Theme.of(context).textTheme.displaySmall,
       controller: controller,
+      validator: validator,
       decoration: InputDecoration(
           suffixIcon: suffixIcon,
           hintText: hintText,

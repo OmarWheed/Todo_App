@@ -31,12 +31,6 @@ class AddPageBody extends StatelessWidget {
                     if (state is InsertTaskSuccess) {
                       Navigator.of(context).pop();
                     }
-                    if (state is InsertTaskLoading) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("loading"),
-                        duration: Duration(milliseconds: 250),
-                      ));
-                    }
                   },
                   child: CustomElevatedButton(
                     text: AppStrings.createTask,
